@@ -1,0 +1,15 @@
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/bin/Debug/net8.0/UserIdentity.Application.deps.json
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/bin/Debug/net8.0/UserIdentity.Application.dll
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/bin/Debug/net8.0/UserIdentity.Application.pdb
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/bin/Debug/net8.0/UserIdentity.Domain.dll
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/bin/Debug/net8.0/UserIdentity.Domain.pdb
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/obj/Debug/net8.0/UserIdentity.Application.csproj.AssemblyReference.cache
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/obj/Debug/net8.0/UserIdentity.Application.GeneratedMSBuildEditorConfig.editorconfig
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/obj/Debug/net8.0/UserIdentity.Application.AssemblyInfoInputs.cache
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/obj/Debug/net8.0/UserIdentity.Application.AssemblyInfo.cs
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/obj/Debug/net8.0/UserIdentity.Application.csproj.CoreCompileInputs.cache
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/obj/Debug/net8.0/UserIden.6F7D5E8E.Up2Date
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/obj/Debug/net8.0/UserIdentity.Application.dll
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/obj/Debug/net8.0/refint/UserIdentity.Application.dll
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/obj/Debug/net8.0/UserIdentity.Application.pdb
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/obj/Debug/net8.0/ref/UserIdentity.Application.dll
