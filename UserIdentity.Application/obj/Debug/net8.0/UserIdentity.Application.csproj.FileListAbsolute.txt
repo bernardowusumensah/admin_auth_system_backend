@@ -13,3 +13,4 @@
 /Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/obj/Debug/net8.0/refint/UserIdentity.Application.dll
 /Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/obj/Debug/net8.0/UserIdentity.Application.pdb
 /Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/obj/Debug/net8.0/ref/UserIdentity.Application.dll
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Application/obj/Debug/net8.0/UserIdentity.Application.sourcelink.json

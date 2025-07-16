@@ -9,3 +9,4 @@
 /Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Domain/obj/Debug/net8.0/refint/UserIdentity.Domain.dll
 /Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Domain/obj/Debug/net8.0/UserIdentity.Domain.pdb
 /Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Domain/obj/Debug/net8.0/ref/UserIdentity.Domain.dll
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.Domain/obj/Debug/net8.0/UserIdentity.Domain.sourcelink.json

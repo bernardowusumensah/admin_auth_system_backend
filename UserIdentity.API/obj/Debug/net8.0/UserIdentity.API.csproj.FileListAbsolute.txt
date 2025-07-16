@@ -47,3 +47,4 @@
 /Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.API/obj/Debug/net8.0/UserIdentity.API.pdb
 /Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.API/obj/Debug/net8.0/UserIdentity.API.genruntimeconfig.cache
 /Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.API/obj/Debug/net8.0/ref/UserIdentity.API.dll
+/Users/n.g.o./Documents/projects/c#/webapi/aas/UserIdentity.API/obj/Debug/net8.0/UserIdentity.API.sourcelink.json
