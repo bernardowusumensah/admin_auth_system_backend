@@ -58,7 +58,6 @@
 /Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.API/bin/Debug/net8.0/BCrypt.Net-Next.dll
 /Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.API/bin/Debug/net8.0/MediatR.dll
 /Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.API/bin/Debug/net8.0/MediatR.Contracts.dll
-/Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.API/bin/Debug/net8.0/MediatR.Extensions.Microsoft.DependencyInjection.dll
 /Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.API/bin/Debug/net8.0/Microsoft.AspNetCore.Authentication.JwtBearer.dll
 /Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.API/bin/Debug/net8.0/Microsoft.AspNetCore.OpenApi.dll
 /Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.API/bin/Debug/net8.0/Microsoft.EntityFrameworkCore.dll

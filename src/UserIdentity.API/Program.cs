@@ -1,5 +1,7 @@
+
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using UserIdentity.Application;
 using UserIdentity.Infrastructure;
 using UserIdentity.Infrastructure.Data;
 
@@ -28,12 +30,10 @@ builder.Services.AddInfrastructureServices();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// builder.Services.AddMediatR(cfg =>
-// {
-    
-//     cfg.RegisterServicesFromAssembly(typeof(Program).Assembly);
-
-// });
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(AssemblyReference).Assembly);
+});
 
 var app = builder.Build();
 

@@ -12,6 +12,7 @@ namespace UserIdentity.Infrastructure
             // Register services
             services.AddScoped<ISqlGenericRepository, SqlGenericRepository>();
             services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
+            
 
             return services;
         }
