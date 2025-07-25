@@ -1,2 +1,11 @@
-# admin_auth_system_backend
-run the project on the terminal with dotnet run --project UserIdentity.API and navigate to http://localhost:5215/swagger/index.html
+# Admin Authentication System Backend
+
+## Running the Project
+
+To build and start the application:
+
+```bash
+docker compose up --build
+```
+
+The API will be available at: http://localhost:5001/swagger/index.html
