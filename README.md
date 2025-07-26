@@ -5,7 +5,7 @@
 To build and start the application:
 
 ```bash
-docker-compose up
+docker-compose up --build
 ```
 
 The API will be available at: http://localhost:5001/swagger/index.html
