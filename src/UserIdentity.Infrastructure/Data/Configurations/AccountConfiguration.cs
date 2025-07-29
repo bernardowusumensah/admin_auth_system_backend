@@ -9,7 +9,7 @@ public class AccountConfiguration : IEntityTypeConfiguration<Account>
 {
     public void Configure(EntityTypeBuilder<Account> builder)
     {
-        builder.ToTable("Accounts");
+        builder.ToTable("accounts");
         builder.HasKey(a => a.Id);
         builder.Property(a => a.Email).HasColumnName("email");
         builder.Property(a => a.HashedPassword).HasColumnName("hashed_password");
