@@ -7,7 +7,7 @@ To build and start the application:
 ```bash
 docker-compose up --build
 ```
-Run migration
+Run migration in the src folder
 ```bash
 dotnet ef migrations add InitialCreate --project UserIdentity.Infrastructure/UserIdentity.Infrastructure.csproj --startup-project UserIdentity.API/UserIdentity.API.csproj
 ```
