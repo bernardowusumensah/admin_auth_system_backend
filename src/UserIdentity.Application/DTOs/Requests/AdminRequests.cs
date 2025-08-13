@@ -1,5 +1,5 @@
 using System;
-using UserIdentity.Application.DTOs.Admin;
+using UserIdentity.Domain.Entities;
 
 namespace UserIdentity.Application.DTOs.Requests
 {

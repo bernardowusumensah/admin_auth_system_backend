@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UserIdentity.Domain.Entities;
 
 namespace UserIdentity.Application.DTOs.Admin
 {
@@ -46,14 +47,6 @@ namespace UserIdentity.Application.DTOs.Admin
         public RequiredActionType? RequiredActionType { get; set; }
     }
 
-    public enum RequiredActionType
-    {
-        Skip,
-        ConfrimEmail,
-        EnableMfa,
-        CompleteUserInformation
-    }
-
     public class SubscriptionDto
     {
         public Guid Id { get; init; }
@@ -62,27 +55,8 @@ namespace UserIdentity.Application.DTOs.Admin
         public SubscriptionPlan Plan { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-    }
-
-    public enum SubscriptionType
-    {
-        Basic,
-        Premium
-    }
-
-    public enum SubscriptionStatus
-    {
-        Pending,
-        Active,
-        Expired,
-        Canceled,
-        Trial
-    }
-
-    public enum SubscriptionPlan
-    {
-        Monthly,
-        Yearly,
-        Lifetime
+        public Guid? AccountId { get; set; }
+        public string? AccountEmail { get; set; }
+        public string? UserName { get; set; }
     }
 }

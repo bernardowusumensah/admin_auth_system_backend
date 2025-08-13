@@ -29,15 +29,66 @@ namespace UserIdentity.Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_on");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("email");
 
+                    b.Property<bool>("EmailConfirmation")
+                        .HasColumnType("boolean")
+                        .HasColumnName("email_confirmation");
+
                     b.Property<string>("HashedPassword")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("hashed_password");
+
+                    b.Property<DateTime?>("LockedOut")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("locked_out");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("user_id");
+
+                    b.Property<string>("Username")
+                        .HasColumnType("text")
+                        .HasColumnName("username");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("accounts", (string)null);
+                });
+
+            modelBuilder.Entity("UserIdentity.Domain.Entities.Address", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<string>("City")
+                        .HasColumnType("text")
+                        .HasColumnName("city");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("text")
+                        .HasColumnName("country");
+
+                    b.Property<string>("PostalCode")
+                        .HasColumnType("text")
+                        .HasColumnName("postal_code");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("text")
+                        .HasColumnName("street");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid")
@@ -48,7 +99,83 @@ namespace UserIdentity.Infrastructure.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("accounts", (string)null);
+                    b.ToTable("addresses", (string)null);
+                });
+
+            modelBuilder.Entity("UserIdentity.Domain.Entities.RequiredAction", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("account_id");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_on");
+
+                    b.Property<bool>("IsCompleted")
+                        .HasColumnType("boolean")
+                        .HasColumnName("is_completed");
+
+                    b.Property<int>("RequiredActionType")
+                        .HasColumnType("integer")
+                        .HasColumnName("required_action_type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("required_actions", (string)null);
+                });
+
+            modelBuilder.Entity("UserIdentity.Domain.Entities.Subscription", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid")
+                        .HasColumnName("id");
+
+                    b.Property<Guid>("AccountId")
+                        .HasColumnType("uuid")
+                        .HasColumnName("account_id");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("created_on");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("end_date");
+
+                    b.Property<int>("Plan")
+                        .HasColumnType("integer")
+                        .HasColumnName("plan");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("start_date");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer")
+                        .HasColumnName("status");
+
+                    b.Property<int>("SubscriptionType")
+                        .HasColumnType("integer")
+                        .HasColumnName("subscription_type");
+
+                    b.Property<DateTime>("UpdatedOn")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("updated_on");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AccountId");
+
+                    b.ToTable("subscriptions", (string)null);
                 });
 
             modelBuilder.Entity("UserIdentity.Domain.Entities.User", b =>
@@ -58,13 +185,27 @@ namespace UserIdentity.Infrastructure.Migrations
                         .HasColumnType("uuid")
                         .HasColumnName("id");
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("text")
+                        .HasColumnName("avatar");
+
+                    b.Property<DateTime?>("DateOfBirth")
+                        .HasColumnType("timestamp with time zone")
+                        .HasColumnName("date_of_birth");
+
+                    b.Property<string>("DisplayName")
+                        .HasColumnType("text")
+                        .HasColumnName("display_name");
+
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("first_name");
 
+                    b.Property<int?>("Gender")
+                        .HasColumnType("integer")
+                        .HasColumnName("gender");
+
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("last_name");
 
@@ -82,6 +223,39 @@ namespace UserIdentity.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("UserIdentity.Domain.Entities.Address", b =>
+                {
+                    b.HasOne("UserIdentity.Domain.Entities.User", "User")
+                        .WithOne("Address")
+                        .HasForeignKey("UserIdentity.Domain.Entities.Address", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("UserIdentity.Domain.Entities.RequiredAction", b =>
+                {
+                    b.HasOne("UserIdentity.Domain.Entities.Account", "Account")
+                        .WithMany("RequiredActions")
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
+                });
+
+            modelBuilder.Entity("UserIdentity.Domain.Entities.Subscription", b =>
+                {
+                    b.HasOne("UserIdentity.Domain.Entities.Account", "Account")
+                        .WithMany("Subscriptions")
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Account");
                 });
 
             modelBuilder.Entity("UserIdentity.Domain.Entities.User", b =>
@@ -112,6 +286,18 @@ namespace UserIdentity.Infrastructure.Migrations
                         });
 
                     b.Navigation("UserRoles");
+                });
+
+            modelBuilder.Entity("UserIdentity.Domain.Entities.Account", b =>
+                {
+                    b.Navigation("RequiredActions");
+
+                    b.Navigation("Subscriptions");
+                });
+
+            modelBuilder.Entity("UserIdentity.Domain.Entities.User", b =>
+                {
+                    b.Navigation("Address");
                 });
 #pragma warning restore 612, 618
         }

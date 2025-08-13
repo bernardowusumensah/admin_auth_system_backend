@@ -1,7 +1,10 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UserIdentity.Application.DTOs.Admin;
 using UserIdentity.Application.DTOs.Requests;
+using UserIdentity.Application.Features.Admin.Subscriptions.Commands;
+using UserIdentity.Application.Features.Admin.Subscriptions.Queries;
 
 namespace UserIdentity.API.Controllers.Admin
 {
@@ -10,26 +13,24 @@ namespace UserIdentity.API.Controllers.Admin
     [Authorize]
     public class AdminSubscriptionsController : ControllerBase
     {
+        private readonly IMediator _mediator;
+
+        public AdminSubscriptionsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
         // POST: api/admin/subscriptions
         [HttpPost]
         public async Task<ActionResult<SubscriptionDto>> CreateSubscription([FromBody] CreateSubscriptionRequest request)
         {
-            // Mock response - implement with your repository/service
-            var subscription = new SubscriptionDto
+            var command = new CreateSubscriptionCommand
             {
-                Id = Guid.NewGuid(),
+                AccountId = request.AccountId,
                 SubscriptionType = request.SubscriptionType,
-                Status = SubscriptionStatus.Active,
-                Plan = request.SubscriptionPlan,
-                StartDate = DateTime.UtcNow,
-                EndDate = request.SubscriptionPlan switch
-                {
-                    SubscriptionPlan.Monthly => DateTime.UtcNow.AddMonths(1),
-                    SubscriptionPlan.Yearly => DateTime.UtcNow.AddYears(1),
-                    SubscriptionPlan.Lifetime => DateTime.MaxValue,
-                    _ => DateTime.UtcNow.AddMonths(1)
-                }
+                SubscriptionPlan = request.SubscriptionPlan
             };
+
+            var subscription = await _mediator.Send(command);
 
             return Ok(new { 
                 message = "Subscription created successfully", 
@@ -41,7 +42,12 @@ namespace UserIdentity.API.Controllers.Admin
         [HttpDelete("{id}")]
         public async Task<ActionResult> CancelSubscription(Guid id)
         {
-            // Implement subscription cancellation logic
+            var command = new CancelSubscriptionCommand { SubscriptionId = id };
+            var result = await _mediator.Send(command);
+
+            if (!result)
+                return NotFound(new { message = $"Subscription {id} not found." });
+
             return Ok(new { message = $"Subscription {id} has been cancelled successfully." });
         }
 
@@ -49,7 +55,12 @@ namespace UserIdentity.API.Controllers.Admin
         [HttpPost("cancel")]
         public async Task<ActionResult> CancelSubscriptionByRequest([FromBody] CancelSubscriptionRequest request)
         {
-            // Implement subscription cancellation logic
+            var command = new CancelSubscriptionCommand { SubscriptionId = request.SubscriptionId };
+            var result = await _mediator.Send(command);
+
+            if (!result)
+                return NotFound(new { message = $"Subscription {request.SubscriptionId} not found." });
+
             return Ok(new { message = $"Subscription {request.SubscriptionId} has been cancelled successfully." });
         }
 
@@ -57,28 +68,8 @@ namespace UserIdentity.API.Controllers.Admin
         [HttpGet]
         public async Task<ActionResult<IEnumerable<SubscriptionDto>>> GetSubscriptions()
         {
-            // Mock response - implement with your repository
-            var subscriptions = new List<SubscriptionDto>
-            {
-                new SubscriptionDto
-                {
-                    Id = Guid.NewGuid(),
-                    SubscriptionType = SubscriptionType.Basic,
-                    Status = SubscriptionStatus.Active,
-                    Plan = SubscriptionPlan.Monthly,
-                    StartDate = DateTime.UtcNow.AddDays(-15),
-                    EndDate = DateTime.UtcNow.AddDays(15)
-                },
-                new SubscriptionDto
-                {
-                    Id = Guid.NewGuid(),
-                    SubscriptionType = SubscriptionType.Premium,
-                    Status = SubscriptionStatus.Active,
-                    Plan = SubscriptionPlan.Yearly,
-                    StartDate = DateTime.UtcNow.AddDays(-30),
-                    EndDate = DateTime.UtcNow.AddDays(335)
-                }
-            };
+            var query = new GetAllSubscriptionsQuery();
+            var subscriptions = await _mediator.Send(query);
 
             return Ok(subscriptions);
         }

@@ -1,7 +1,11 @@
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using UserIdentity.Application.DTOs.Admin;
 using UserIdentity.Application.DTOs.Requests;
+using UserIdentity.Application.Features.Admin.Accounts.Commands;
+using UserIdentity.Application.Features.Admin.Accounts.Queries;
+using UserIdentity.Domain.Entities;
 
 namespace UserIdentity.API.Controllers.Admin
 {
@@ -10,6 +14,12 @@ namespace UserIdentity.API.Controllers.Admin
     [Authorize]
     public class AdminAccountsController : ControllerBase
     {
+        private readonly IMediator _mediator;
+
+        public AdminAccountsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
         // GET: api/admin/accounts
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AccountDto>>> GetAccounts(
@@ -18,60 +28,15 @@ namespace UserIdentity.API.Controllers.Admin
             [FromQuery] string? search = null,
             [FromQuery] string? filter = null)
         {
-            // Mock response for now - implement with your repository
-            var accounts = new List<AccountDto>
+            var query = new GetAllAccountsQuery
             {
-                new AccountDto
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Username = "testuser",
-                    Email = "test@example.com",
-                    EmailConfirmation = true,
-                    CreatedOn = DateTime.UtcNow.AddDays(-30),
-                    RequiredActions = new List<RequiredActionDto>
-                    {
-                        new RequiredActionDto
-                        {
-                            AccountId = Guid.NewGuid().ToString(),
-                            RequiredActionType = RequiredActionType.ConfrimEmail
-                        }
-                    },
-                    Subscriptions = new List<SubscriptionDto>
-                    {
-                        new SubscriptionDto
-                        {
-                            Id = Guid.NewGuid(),
-                            SubscriptionType = SubscriptionType.Basic,
-                            Status = SubscriptionStatus.Active,
-                            Plan = SubscriptionPlan.Monthly,
-                            StartDate = DateTime.UtcNow.AddDays(-15),
-                            EndDate = DateTime.UtcNow.AddDays(15)
-                        }
-                    }
-                },
-                new AccountDto
-                {
-                    Id = Guid.NewGuid().ToString(),
-                    Username = "premiumuser",
-                    Email = "premium@example.com",
-                    EmailConfirmation = true,
-                    CreatedOn = DateTime.UtcNow.AddDays(-60),
-                    RequiredActions = new List<RequiredActionDto>(),
-                    Subscriptions = new List<SubscriptionDto>
-                    {
-                        new SubscriptionDto
-                        {
-                            Id = Guid.NewGuid(),
-                            SubscriptionType = SubscriptionType.Premium,
-                            Status = SubscriptionStatus.Active,
-                            Plan = SubscriptionPlan.Yearly,
-                            StartDate = DateTime.UtcNow.AddDays(-30),
-                            EndDate = DateTime.UtcNow.AddDays(335)
-                        }
-                    }
-                }
+                Page = page,
+                PageSize = pageSize,
+                Search = search,
+                Filter = filter
             };
 
+            var accounts = await _mediator.Send(query);
             return Ok(accounts);
         }
 
@@ -79,35 +44,14 @@ namespace UserIdentity.API.Controllers.Admin
         [HttpGet("{id}")]
         public async Task<ActionResult<AccountDto>> GetAccount(string id)
         {
-            // Mock response - implement with your repository
-            var account = new AccountDto
-            {
-                Id = id,
-                Username = "testuser",
-                Email = "test@example.com",
-                EmailConfirmation = true,
-                CreatedOn = DateTime.UtcNow.AddDays(-30),
-                RequiredActions = new List<RequiredActionDto>
-                {
-                    new RequiredActionDto
-                    {
-                        AccountId = id,
-                        RequiredActionType = RequiredActionType.EnableMfa
-                    }
-                },
-                Subscriptions = new List<SubscriptionDto>
-                {
-                    new SubscriptionDto
-                    {
-                        Id = Guid.NewGuid(),
-                        SubscriptionType = SubscriptionType.Basic,
-                        Status = SubscriptionStatus.Active,
-                        Plan = SubscriptionPlan.Monthly,
-                        StartDate = DateTime.UtcNow.AddDays(-15),
-                        EndDate = DateTime.UtcNow.AddDays(15)
-                    }
-                }
-            };
+            if (!Guid.TryParse(id, out var accountId))
+                return BadRequest("Invalid account ID format");
+
+            var query = new GetAccountByIdQuery { AccountId = accountId };
+            var account = await _mediator.Send(query);
+
+            if (account == null)
+                return NotFound($"Account with ID {id} not found");
 
             return Ok(account);
         }
@@ -116,7 +60,15 @@ namespace UserIdentity.API.Controllers.Admin
         [HttpPost("{id}/ban")]
         public async Task<ActionResult> BanAccount(string id)
         {
-            // Implement ban logic
+            if (!Guid.TryParse(id, out var accountId))
+                return BadRequest("Invalid account ID format");
+
+            var command = new BanAccountCommand { AccountId = accountId };
+            var result = await _mediator.Send(command);
+
+            if (!result)
+                return NotFound($"Account with ID {id} not found");
+
             return Ok(new { message = $"Account {id} has been banned successfully." });
         }
 
@@ -124,7 +76,15 @@ namespace UserIdentity.API.Controllers.Admin
         [HttpDelete("{id}/ban")]
         public async Task<ActionResult> UnbanAccount(string id)
         {
-            // Implement unban logic
+            if (!Guid.TryParse(id, out var accountId))
+                return BadRequest("Invalid account ID format");
+
+            var command = new UnbanAccountCommand { AccountId = accountId };
+            var result = await _mediator.Send(command);
+
+            if (!result)
+                return NotFound($"Account with ID {id} not found");
+
             return Ok(new { message = $"Account {id} has been unbanned successfully." });
         }
 
@@ -132,7 +92,15 @@ namespace UserIdentity.API.Controllers.Admin
         [HttpPost("{id}/disconnect")]
         public async Task<ActionResult> DisconnectAccount(string id)
         {
-            // Implement force disconnect logic
+            if (!Guid.TryParse(id, out var accountId))
+                return BadRequest("Invalid account ID format");
+
+            var command = new DisconnectAccountCommand { AccountId = accountId };
+            var result = await _mediator.Send(command);
+
+            if (!result)
+                return NotFound($"Account with ID {id} not found");
+
             return Ok(new { message = $"Account {id} has been disconnected successfully." });
         }
     }
