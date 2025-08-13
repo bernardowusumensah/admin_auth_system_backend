@@ -2,8 +2,7 @@ using System;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using UserIdentity.Application.DTOs;
-using UserIdentity.Infrastructure.Interfaces;
-using UserIdentity.Infrastructure.Repositories;
+using UserIdentity.Application.Interfaces;
 
 namespace UserIdentity.Application.Features.Login.Commands;
 
@@ -48,7 +47,7 @@ public class LoginWithEmailAndPasswordCommandHandler : IRequestHandler<LoginWith
             };
         }
 
-        var token = _authenticationHelper.GenerateJwtToken(account);
+        var token = _authenticationHelper.GenerateJwtTokenString(account);
         _logger.LogInformation("Successfully logged in user with email: {Email}", request.UserCredentials.Email);
 
         return new AuthenticationResponse

@@ -8,15 +8,11 @@
 
   <ItemGroup>
     <ProjectReference Include="..\UserIdentity.Domain\UserIdentity.Domain.csproj" />
-    <ProjectReference Include="..\UserIdentity.Infrastructure\UserIdentity.Infrastructure.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Interfaces/" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MediatR" Version="13.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.30.0" />
   </ItemGroup>
 
 </Project>

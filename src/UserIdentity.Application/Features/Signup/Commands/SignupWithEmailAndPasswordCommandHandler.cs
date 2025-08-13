@@ -5,8 +5,7 @@ using Microsoft.Extensions.Logging;
 using UserIdentity.Application.DTOs;
 using UserIdentity.Domain.Entities;
 using UserIdentity.Domain.ValueObjects;
-using UserIdentity.Infrastructure.Interfaces;
-using UserIdentity.Infrastructure.Repositories;
+using UserIdentity.Application.Interfaces;
 
 
 namespace UserIdentity.Application.Features.Signup.Commands;

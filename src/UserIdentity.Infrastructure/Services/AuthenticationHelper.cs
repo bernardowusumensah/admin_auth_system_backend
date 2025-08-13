@@ -4,7 +4,7 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using UserIdentity.Infrastructure.Interfaces;
+using UserIdentity.Application.Interfaces;
 using UserIdentity.Domain.Entities;
 
 namespace UserIdentity.Infrastructure.Services;
@@ -28,7 +28,7 @@ public class AuthenticationHelper : IAuthenticationHelper
         return BCrypt.Net.BCrypt.Verify(password, hashedPassword);
     }
 
-    public string GenerateJwtToken(Account account)
+    public JwtSecurityToken GenerateJwtToken(Account account)
     {
         var claims = new[]
         {
@@ -40,15 +40,18 @@ public class AuthenticationHelper : IAuthenticationHelper
         var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
         var expiry = DateTime.Now.AddDays(1);
 
-        var token = new JwtSecurityToken(
+        return new JwtSecurityToken(
             issuer: _configuration["Jwt:Issuer"],
             audience: _configuration["Jwt:Audience"],
             claims: claims,
             expires: expiry,
             signingCredentials: creds
         );
-
-        return new JwtSecurityTokenHandler().WriteToken(token);
     }
 
+    public string GenerateJwtTokenString(Account account)
+    {
+        var token = GenerateJwtToken(account);
+        return new JwtSecurityTokenHandler().WriteToken(token);
+    }
 }

@@ -1,4 +1,5 @@
 using System;
+using UserIdentity.Application.Interfaces;
 using UserIdentity.Domain.Entities;
 using UserIdentity.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;

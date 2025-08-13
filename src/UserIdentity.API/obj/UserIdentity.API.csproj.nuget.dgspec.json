@@ -118,9 +118,6 @@
             "projectReferences": {
               "/Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Domain/UserIdentity.Domain.csproj": {
                 "projectPath": "/Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Domain/UserIdentity.Domain.csproj"
-              },
-              "/Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Infrastructure/UserIdentity.Infrastructure.csproj": {
-                "projectPath": "/Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Infrastructure/UserIdentity.Infrastructure.csproj"
               }
             }
           }
@@ -143,6 +140,10 @@
             "MediatR": {
               "target": "Package",
               "version": "[13.0.0, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[6.30.0, )"
             }
           },
           "imports": [
@@ -247,6 +248,9 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "/Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Application/UserIdentity.Application.csproj": {
+                "projectPath": "/Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Application/UserIdentity.Application.csproj"
+              },
               "/Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Domain/UserIdentity.Domain.csproj": {
                 "projectPath": "/Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Domain/UserIdentity.Domain.csproj"
               }
@@ -283,6 +287,10 @@
               "version": "[9.0.7, )"
             },
             "Microsoft.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[9.0.7, )"
+            },
+            "Microsoft.Extensions.Http": {
               "target": "Package",
               "version": "[9.0.7, )"
             },

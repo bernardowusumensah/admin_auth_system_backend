@@ -20,8 +20,10 @@
 /Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Infrastructure/bin/Debug/net8.0/UserIdentity.Infrastructure.runtimeconfig.json
 /Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Infrastructure/bin/Debug/net8.0/UserIdentity.Infrastructure.dll
 /Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Infrastructure/bin/Debug/net8.0/UserIdentity.Infrastructure.pdb
+/Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Infrastructure/bin/Debug/net8.0/UserIdentity.Application.dll
 /Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Infrastructure/bin/Debug/net8.0/UserIdentity.Domain.dll
 /Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Infrastructure/bin/Debug/net8.0/UserIdentity.Domain.pdb
+/Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Infrastructure/bin/Debug/net8.0/UserIdentity.Application.pdb
 /Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Infrastructure/obj/Debug/net8.0/UserIdentity.Infrastructure.csproj.AssemblyReference.cache
 /Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Infrastructure/obj/Debug/net8.0/UserIdentity.Infrastructure.GeneratedMSBuildEditorConfig.editorconfig
 /Users/n.g.o./Documents/projects/c#/webapi/aas/src/UserIdentity.Infrastructure/obj/Debug/net8.0/UserIdentity.Infrastructure.AssemblyInfoInputs.cache
