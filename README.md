@@ -29,7 +29,7 @@ Run migration:
 ```bash
 dotnet ef migrations add InitialCreate --project UserIdentity.Infrastructure/UserIdentity.Infrastructure.csproj --startup-project UserIdentity.API/UserIdentity.API.csproj
 ```
-
+in the src folder
 Update database:
 ```bash
 dotnet ef database update --project UserIdentity.Infrastructure/UserIdentity.Infrastructure.csproj --startup-project UserIdentity.API/UserIdentity.API.csproj
