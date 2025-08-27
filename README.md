@@ -24,12 +24,12 @@ docker compose up --build
 The API will be available at: http://localhost:5001/swagger/index.html
 
 ## Database Migrations
-
+in the src folder
 Run migration:
 ```bash
 dotnet ef migrations add InitialCreate --project UserIdentity.Infrastructure/UserIdentity.Infrastructure.csproj --startup-project UserIdentity.API/UserIdentity.API.csproj
 ```
-in the src folder
+
 Update database:
 ```bash
 dotnet ef database update --project UserIdentity.Infrastructure/UserIdentity.Infrastructure.csproj --startup-project UserIdentity.API/UserIdentity.API.csproj
