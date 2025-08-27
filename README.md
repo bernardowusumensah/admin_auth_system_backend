@@ -1,5 +1,4 @@
 # Admin Panel V0.1 Backend API
-Bismillah.
 
 This is the backend API for the Admin Panel system providing account management and service health monitoring capabilities.
 
