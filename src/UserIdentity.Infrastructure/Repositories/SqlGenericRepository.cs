@@ -84,6 +84,61 @@ public class SqlGenericRepository : ISqlGenericRepository
         _context.Set<T>().Remove(entity);
         await _context.SaveChangesAsync();
     }
+
+    // Support Tickets specialized operations
+    public async Task<(IEnumerable<SupportTicket> Tickets, int TotalCount)> GetSupportTicketsAsync(
+        string? search,
+        TicketStatus? status,
+        string? category,
+        string? assignedTo,
+        DateTime? fromDate,
+        DateTime? toDate,
+        int page,
+        int pageSize)
+    {
+        IQueryable<SupportTicket> query = _context.SupportTickets.Include(t => t.InternalNotes);
+
+        if (!string.IsNullOrWhiteSpace(search))
+        {
+            var s = search.ToLower();
+            query = query.Where(t => (t.PlayerUsername != null && t.PlayerUsername.ToLower().Contains(s)) ||
+                                      (t.PlayerEmail != null && t.PlayerEmail.ToLower().Contains(s)) ||
+                                      (t.Subject != null && t.Subject.ToLower().Contains(s)));
+        }
+        if (status.HasValue)
+            query = query.Where(t => t.Status == status);
+        if (!string.IsNullOrWhiteSpace(category))
+            query = query.Where(t => t.Category == category);
+        if (!string.IsNullOrWhiteSpace(assignedTo))
+            query = query.Where(t => t.AssignedTo == assignedTo);
+        if (fromDate.HasValue)
+            query = query.Where(t => t.SubmittedAt >= fromDate);
+        if (toDate.HasValue)
+            query = query.Where(t => t.SubmittedAt <= toDate);
+
+        var total = await query.CountAsync();
+
+        var tickets = await query
+            .OrderByDescending(t => t.LastUpdatedAt)
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return (tickets, total);
+    }
+
+    public async Task<SupportTicket?> GetSupportTicketByIdAsync(Guid id)
+    {
+        return await _context.SupportTickets
+            .Include(t => t.InternalNotes)
+            .FirstOrDefaultAsync(t => t.Id == id);
+    }
+
+    public async Task AddInternalNoteAsync(InternalNote note)
+    {
+        await _context.InternalNotes.AddAsync(note);
+        await _context.SaveChangesAsync();
+    }
 }
 
 

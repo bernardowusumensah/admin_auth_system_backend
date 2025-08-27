@@ -19,5 +19,18 @@ namespace UserIdentity.Application.Interfaces
         Task InsertAsync<T>(T entity) where T : class;
         Task UpdateAsync<T>(T entity) where T : class;
         Task DeleteAsync<T>(T entity) where T : class;
+
+        // Support Tickets specialized operations
+        Task<(IEnumerable<SupportTicket> Tickets, int TotalCount)> GetSupportTicketsAsync(
+            string? search,
+            TicketStatus? status,
+            string? category,
+            string? assignedTo,
+            DateTime? fromDate,
+            DateTime? toDate,
+            int page,
+            int pageSize);
+        Task<SupportTicket?> GetSupportTicketByIdAsync(Guid id);
+        Task AddInternalNoteAsync(InternalNote note);
     }
 }

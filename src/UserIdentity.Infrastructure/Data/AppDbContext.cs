@@ -17,6 +17,8 @@ public class AppDbContext: DbContext
     public DbSet<RequiredAction> RequiredActions { get; set; }
     public DbSet<Subscription> Subscriptions { get; set; }
     public DbSet<Address> Addresses { get; set; }
+    public DbSet<SupportTicket> SupportTickets { get; set; }
+    public DbSet<InternalNote> InternalNotes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
