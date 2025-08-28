@@ -63,7 +63,7 @@ namespace UserIdentity.Infrastructure.Services
             try
             {                
                 // Simulate some services being down
-                var isHealthy = serviceName != "gamesettings"; // GameSettings service is down in our mock
+                var isHealthy = serviceName != "gamesettings";
                 
                 return new ServiceHealthDto
                 {
