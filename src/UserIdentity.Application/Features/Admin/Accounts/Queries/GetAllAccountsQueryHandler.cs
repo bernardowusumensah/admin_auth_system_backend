@@ -6,7 +6,7 @@ using UserIdentity.Domain.Entities;
 
 namespace UserIdentity.Application.Features.Admin.Accounts.Queries
 {
-    public class GetAllAccountsQueryHandler : IRequestHandler<GetAllAccountsQuery, IEnumerable<AccountDto>>
+    public class GetAllAccountsQueryHandler : IRequestHandler<GetAllAccountsQuery, AccountsResponse>
     {
         private readonly ISqlGenericRepository _repository;
 
@@ -15,11 +15,11 @@ namespace UserIdentity.Application.Features.Admin.Accounts.Queries
             _repository = repository;
         }
 
-        public async Task<IEnumerable<AccountDto>> Handle(GetAllAccountsQuery request, CancellationToken cancellationToken)
+        public async Task<AccountsResponse> Handle(GetAllAccountsQuery request, CancellationToken cancellationToken)
         {
             var accounts = await _repository.GetAllAsync<Account>(
-                filter: a => string.IsNullOrEmpty(request.Search) || 
-                            a.Email.Contains(request.Search) || 
+                filter: a => string.IsNullOrEmpty(request.Search) ||
+                            a.Email.Contains(request.Search) ||
                             (a.Username != null && a.Username.Contains(request.Search)),
                 include: q => q.Include(a => a.User)
                               .Include(a => a.RequiredActions)
@@ -32,7 +32,7 @@ namespace UserIdentity.Application.Features.Admin.Accounts.Queries
                 .Skip((request.Page - 1) * request.PageSize)
                 .Take(request.PageSize);
 
-            return paginatedAccounts.Select(a => new AccountDto
+            var acc = paginatedAccounts.Select(a => new AccountDto
             {
                 Id = a.Id.ToString(),
                 Username = a.Username,
@@ -59,6 +59,14 @@ namespace UserIdentity.Application.Features.Admin.Accounts.Queries
                     UserName = a.User != null ? $"{a.User.FirstName} {a.User.LastName}".Trim() : "N/A"
                 }).ToList() ?? new List<SubscriptionDto>()
             }).ToList();
+            
+            return new AccountsResponse
+            {
+                Accounts = acc,
+                TotalCount = accounts.Count(),
+                CurrentPage = request.Page,
+                TotalPages = (int)Math.Ceiling(accounts.Count() / (double)request.PageSize)
+            };
         }
     }
 }

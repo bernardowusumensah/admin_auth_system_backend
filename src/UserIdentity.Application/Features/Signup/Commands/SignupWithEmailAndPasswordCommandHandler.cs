@@ -55,7 +55,8 @@ public class SignupWithEmailAndPasswordCommandHandler : IRequestHandler<SignupWi
             Email = request.Email,
             HashedPassword = _authenticationHelper.HashPassword(request.Password),
             UserId = user.Id,
-            User = user
+            User = user,
+            CreatedOn = DateTime.UtcNow,
         };
 
         await _accountRepository.AddAccountAsync(account);

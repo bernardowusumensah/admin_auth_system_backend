@@ -17,6 +17,12 @@ namespace UserIdentity.Application.DTOs.Admin
         public DateTime? CreatedOn { get; set; }
     }
 
+    public class AccountDtoResponse: AccountDto
+    {
+       
+        public UserDto User { get; set; } = new UserDto();
+    }
+
     public class UserDto
     {
         public string? UserId { get; set; }
@@ -58,5 +64,14 @@ namespace UserIdentity.Application.DTOs.Admin
         public Guid? AccountId { get; set; }
         public string? AccountEmail { get; set; }
         public string? UserName { get; set; }
+    }
+
+    public class AccountsResponse
+    {
+        public IEnumerable<AccountDto> Accounts { get; set; } = new List<AccountDto>();
+        public int TotalCount { get; set; }
+
+        public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
     }
 }

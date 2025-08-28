@@ -22,17 +22,17 @@ namespace UserIdentity.API.Controllers.Admin
         }
         // GET: api/admin/accounts
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AccountDto>>> GetAccounts(
+        public async Task<ActionResult<AccountsResponse>> GetAccounts(
             [FromQuery] int page = 1,
             [FromQuery] int pageSize = 10,
-            [FromQuery] string? search = null,
+            [FromQuery] string? searchTerm = null,
             [FromQuery] string? filter = null)
         {
             var query = new GetAllAccountsQuery
             {
                 Page = page,
                 PageSize = pageSize,
-                Search = search,
+                Search = searchTerm,
                 Filter = filter
             };
 
@@ -42,7 +42,7 @@ namespace UserIdentity.API.Controllers.Admin
 
         // GET: api/admin/accounts/{id}
         [HttpGet("{id}")]
-        public async Task<ActionResult<AccountDto>> GetAccount(string id)
+        public async Task<ActionResult<AccountDtoResponse>> GetAccount(string id)
         {
             if (!Guid.TryParse(id, out var accountId))
                 return BadRequest("Invalid account ID format");

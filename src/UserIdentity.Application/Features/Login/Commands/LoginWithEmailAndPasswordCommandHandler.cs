@@ -54,7 +54,8 @@ public class LoginWithEmailAndPasswordCommandHandler : IRequestHandler<LoginWith
         {
             Token = token,
             Success = true,
-            Message = "Login successful"
+            Message = "Login successful",
+            User = account
         };
     }
 }
